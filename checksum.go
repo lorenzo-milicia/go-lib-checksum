@@ -7,13 +7,14 @@ import (
 	_ "crypto/sha256"
 	_ "crypto/sha512"
 	"encoding/hex"
+	"io"
 )
 
-func Checksum(b []byte, checksum string, algorithm crypto.Hash) bool {
+func Checksum(r io.Reader, checksum string, algorithm crypto.Hash) bool {
 	hash := algorithm.New()
-
-	hash.Write(b)
-
+	if _, err := io.Copy(hash, r); err != nil {
+		return false
+	}
 	stringHash := hex.EncodeToString(hash.Sum(nil))
 
 	if stringHash == checksum {
