@@ -8,8 +8,8 @@ import (
 	_ "crypto/sha512"
 	"encoding/hex"
 	"errors"
-	"io"
 	"fmt"
+	"io"
 )
 
 func Validate(r io.Reader, checksum string, hashFunction crypto.Hash) (bool, error) {
@@ -21,7 +21,7 @@ func Validate(r io.Reader, checksum string, hashFunction crypto.Hash) (bool, err
 	if _, err := io.Copy(hash, r); err != nil {
 		return false, err
 	}
-	
+
 	stringHash := hex.EncodeToString(hash.Sum(nil))
 
 	if stringHash == checksum {
