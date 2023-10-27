@@ -7,7 +7,9 @@ import (
 	_ "crypto/sha256"
 	_ "crypto/sha512"
 	"encoding/hex"
+	"errors"
 	"io"
+	"fmt"
 )
 
 func Validate(r io.Reader, checksum string, hashFunction crypto.Hash) (bool, error) {
